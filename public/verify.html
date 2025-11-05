@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Verification</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section class="contact-section">
+    <div class="container" style="text-align:center;">
+      <h2>Verification Email Sent!</h2>
+      <p id="verifyMessage"></p>
+      <p>Please check your inbox and verify your email before logging in.</p>
+      <p id="countdown">You can resend in 30 seconds...</p>
+      <button id="resendBtn" disabled>Resend Email</button>
+    </div>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    import { getAuth, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0ppHcnweMHepAgsn25FoCiU7UuoYQ-IQ",
+      authDomain: "monara1.firebaseapp.com",
+      projectId: "monara1",
+      databaseURL: "https://monara1-default-rtdb.asia-southeast1.firebasedatabase.app",
+      storageBucket: "monara1.firebasestorage.app",
+      messagingSenderId: "734743640311",
+      appId: "1:734743640311:web:772e09ef0b827a532c7bf2",
+      measurementId: "G-L5TC4YGNYS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const hiddenEmail = localStorage.getItem("verifyEmail");
+    document.getElementById("verifyMessage").textContent = `We sent a verification email to ${hiddenEmail}`;
+
+    let seconds = 30;
+    const countdown = document.getElementById("countdown");
+    const resendBtn = document.getElementById("resendBtn");
+
+    const timer = setInterval(() => {
+      seconds--;
+      countdown.textContent = `You can resend in ${seconds} seconds...`;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        resendBtn.disabled = false;
+        countdown.textContent = "Didn’t get it?";
+      }
+    }, 1000);
+
+    resendBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (user) {
+        await sendEmailVerification(user);
+        alert("Verification email resent!");
+      }
+    });
+  </script>
+</body>
+</html>

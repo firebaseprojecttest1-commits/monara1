@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monara | Login / Sign Up</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="scripts/navbar.js" defer></script>
+</head>
+<body>
+  <section class="contact-section">
+    <div class="container">
+      <div class="auth-toggle">
+        <button id="showLogin" class="active">Login</button>
+        <button id="showSignup">Sign Up</button>
+      </div>
+
+      <!-- 🔐 LOGIN FORM -->
+      <form id="loginForm">
+        <h2>Login</h2>
+        <div class="inputBox">
+          <input type="email" id="loginEmail" placeholder="Email Address" required />
+        </div>
+        <div class="inputBox">
+          <input type="password" id="loginPassword" placeholder="Password" required />
+        </div>
+        <div class="inputBox">
+          <button type="submit">Login</button>
+        </div>
+      </form>
+
+      <!-- 📝 SIGNUP FORM -->
+      <form id="signupForm" style="display: none;">
+        <h2>Create Account</h2>
+        <div class="inputBox">
+          <input type="text" id="signupUsername" placeholder="Username" required />
+        </div>
+        <div class="inputBox">
+          <input type="email" id="signupEmail" placeholder="Email Address" required />
+        </div>
+        <div class="inputBox">
+          <input type="password" id="signupPassword" placeholder="Password" required />
+        </div>
+        <div class="inputBox">
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script type="module" src="scripts/auth.js"></script>
+</body>
+</html>
